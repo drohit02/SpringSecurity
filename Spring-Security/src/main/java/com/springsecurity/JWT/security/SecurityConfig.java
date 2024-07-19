@@ -2,6 +2,7 @@ package com.springsecurity.JWT.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,6 +16,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -33,6 +35,7 @@ public class SecurityConfig {
          return http.build();
     }
     
+    
     @Bean
     UserDetailsService userDetailsService() {
     	UserDetails user1 = User.withUsername("user1")
@@ -41,7 +44,7 @@ public class SecurityConfig {
     							.build();
     	
     	UserDetails admin = User.withUsername("admin")
-    							.password("{noop}admin23")
+    							.password("{noop}admin123")
     							.roles("ADMIN")
     							.build();
     	
