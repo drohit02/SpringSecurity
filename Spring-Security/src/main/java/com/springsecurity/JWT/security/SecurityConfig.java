@@ -47,38 +47,38 @@ public class SecurityConfig {
     }
     
     
-//    @Bean
-//    UserDetailsService userDetailsService() {
-//    	UserDetails user1 = User.withUsername("user1")
-//    							.password("{noop}pass123")
-//    							.roles("USER")
-//    							.build();
-//    	
-//    	UserDetails admin = User.withUsername("admin")
-//    							.password("{noop}admin123")
-//    							.roles("ADMIN")
-//    							.build();
-//    	
-//    	return new InMemoryUserDetailsManager(user1,admin);
-//    }
-//    
     @Bean
     UserDetailsService userDetailsService() {
     	UserDetails user1 = User.withUsername("user1")
-    							.password("{noop}pass123")
+    							.password(passwordEncoder().encode("pass123"))
     							.roles("USER")
     							.build();
     	
-    	UserDetails admin1 = User.withUsername("admin1")
-				.password("{noop}admin123")
-				.roles("ADMIN")
-				.build();
-
-    	JdbcUserDetailsManager jdbcUserDetailsManager  = new JdbcUserDetailsManager(dataSource);
-    	jdbcUserDetailsManager.createUser(user1);
-    	jdbcUserDetailsManager.createUser(admin1);
-    	return jdbcUserDetailsManager;
+    	UserDetails admin = User.withUsername("admin")
+    							.password(passwordEncoder().encode("admin123"))
+    							.roles("ADMIN")
+    							.build();
+    	
+    	return new InMemoryUserDetailsManager(user1,admin);
     }
+    
+//    @Bean
+//    UserDetailsService userDetailsService() {
+//    	UserDetails user1 = User.withUsername("user1")
+//    							.password(passwordEncoder().encode("pass123"))
+//    							.roles("USER")
+//    							.build();
+//    	
+//    	UserDetails admin1 = User.withUsername("admin1")
+//				.password(passwordEncoder().encode("admin123"))
+//				.roles("ADMIN")
+//				.build();
+//
+//    	JdbcUserDetailsManager jdbcUserDetailsManager  = new JdbcUserDetailsManager(dataSource);
+//    	jdbcUserDetailsManager.createUser(user1);
+//    	jdbcUserDetailsManager.createUser(admin1);
+//    	return jdbcUserDetailsManager;
+//    }
     
     @Bean
     PasswordEncoder passwordEncoder() {
